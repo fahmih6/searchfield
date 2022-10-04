@@ -40,9 +40,7 @@ class SearchFieldListItem<T> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        other is SearchFieldListItem &&
-            runtimeType == other.runtimeType &&
-            searchKey == other.searchKey;
+        other is SearchFieldListItem && runtimeType == other.runtimeType && searchKey == other.searchKey;
   }
 
   @override
@@ -229,37 +227,38 @@ class SearchField<T> extends StatefulWidget {
   /// input formatter for the searchfield
   final List<TextInputFormatter>? inputFormatters;
 
-  SearchField({
-    Key? key,
-    required this.suggestions,
-    this.autoCorrect = true,
-    this.controller,
-    this.emptyWidget = const SizedBox.shrink(),
-    this.focusNode,
-    this.hasOverlay = true,
-    this.hint,
-    this.initialValue,
-    this.inputFormatters,
-    this.inputType,
-    this.itemHeight = 35.0,
-    this.marginColor,
-    this.maxSuggestionsInViewPort = 5,
-    this.onSubmit,
-    this.offset,
-    this.onSuggestionTap,
-    this.searchInputDecoration,
-    this.searchStyle,
-    this.suggestionStyle,
-    this.suggestionsDecoration,
-    this.suggestionState = Suggestion.expand,
-    this.suggestionItemDecoration,
-    this.suggestionAction,
-    this.textInputAction,
-    this.validator,
-  })  : assert(
-            (initialValue != null &&
-                    suggestions.containsObject(initialValue)) ||
-                initialValue == null,
+  /// Sets the height of the search box
+  final double? searchBoxHeight;
+
+  SearchField(
+      {Key? key,
+      required this.suggestions,
+      this.autoCorrect = true,
+      this.controller,
+      this.emptyWidget = const SizedBox.shrink(),
+      this.focusNode,
+      this.hasOverlay = true,
+      this.hint,
+      this.initialValue,
+      this.inputFormatters,
+      this.inputType,
+      this.itemHeight = 35.0,
+      this.marginColor,
+      this.maxSuggestionsInViewPort = 5,
+      this.onSubmit,
+      this.offset,
+      this.onSuggestionTap,
+      this.searchInputDecoration,
+      this.searchStyle,
+      this.suggestionStyle,
+      this.suggestionsDecoration,
+      this.suggestionState = Suggestion.expand,
+      this.suggestionItemDecoration,
+      this.suggestionAction,
+      this.textInputAction,
+      this.validator,
+      this.searchBoxHeight})
+      : assert((initialValue != null && suggestions.containsObject(initialValue)) || initialValue == null,
             'Initial value should either be null or should be present in suggestions list.'),
         super(key: key);
 
@@ -341,8 +340,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
     initialize();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _overlayEntry = _createOverlay();
-      if (widget.initialValue == null ||
-          widget.initialValue!.searchKey.isEmpty) {
+      if (widget.initialValue == null || widget.initialValue!.searchKey.isEmpty) {
         suggestionStream.sink.add(null);
       } else {
         searchController!.text = widget.initialValue!.searchKey;
@@ -379,8 +377,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
   Widget _suggestionsBuilder() {
     return StreamBuilder<List<SearchFieldListItem<T>?>?>(
       stream: suggestionStream.stream,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<SearchFieldListItem<T>?>?> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<SearchFieldListItem<T>?>?> snapshot) {
         if (snapshot.data == null || !isSuggestionExpanded) {
           return SizedBox();
         } else if (snapshot.data!.isEmpty) {
@@ -419,9 +416,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
               reverse: isUp,
               padding: EdgeInsets.zero,
               itemCount: snapshot.data!.length,
-              physics: snapshot.data!.length == 1
-                  ? NeverScrollableScrollPhysics()
-                  : ScrollPhysics(),
+              physics: snapshot.data!.length == 1 ? NeverScrollableScrollPhysics() : ScrollPhysics(),
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
                   searchController!.text = snapshot.data![index]!.searchKey;
@@ -435,8 +430,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
                   if (widget.suggestionAction != null) {
                     if (widget.suggestionAction == SuggestionAction.next) {
                       _focus!.nextFocus();
-                    } else if (widget.suggestionAction ==
-                        SuggestionAction.unfocus) {
+                    } else if (widget.suggestionAction == SuggestionAction.unfocus) {
                       _focus!.unfocus();
                     }
                   }
@@ -455,8 +449,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
                         border: widget.suggestionItemDecoration?.border ??
                             Border(
                               bottom: BorderSide(
-                                color: widget.marginColor ??
-                                    onSurfaceColor.withOpacity(0.1),
+                                color: widget.marginColor ?? onSurfaceColor.withOpacity(0.1),
                               ),
                             ),
                       ) ??
@@ -465,8 +458,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
                             ? null
                             : Border(
                                 bottom: BorderSide(
-                                  color: widget.marginColor ??
-                                      onSurfaceColor.withOpacity(0.1),
+                                  color: widget.marginColor ?? onSurfaceColor.withOpacity(0.1),
                                 ),
                               ),
                       ),
@@ -487,12 +479,10 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
   /// Decides whether to show the suggestions
   /// on top or bottom of Searchfield
   /// User can have more control by manually specifying the offset
-  Offset? getYOffset(
-      Offset textFieldOffset, Size textFieldSize, int suggestionsCount) {
+  Offset? getYOffset(Offset textFieldOffset, Size textFieldSize, int suggestionsCount) {
     if (mounted) {
       final size = MediaQuery.of(context).size;
-      final isSpaceAvailable = size.height >
-          textFieldOffset.dy + textFieldSize.height + _totalHeight;
+      final isSpaceAvailable = size.height > textFieldOffset.dy + textFieldSize.height + _totalHeight;
       if (isSpaceAvailable) {
         isUp = false;
         return Offset(0, textFieldSize.height);
@@ -500,8 +490,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
         // search results should align properly with the searchfield
         if (suggestionsCount > widget.maxSuggestionsInViewPort) {
           isUp = false;
-          return Offset(
-              0, -(widget.itemHeight * widget.maxSuggestionsInViewPort));
+          return Offset(0, -(widget.itemHeight * widget.maxSuggestionsInViewPort));
         } else {
           isUp = true;
           return Offset(0, -(widget.itemHeight * suggestionsCount));
@@ -512,15 +501,13 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
   }
 
   OverlayEntry _createOverlay() {
-    final textFieldRenderBox =
-        key.currentContext!.findRenderObject() as RenderBox;
+    final textFieldRenderBox = key.currentContext!.findRenderObject() as RenderBox;
     final textFieldsize = textFieldRenderBox.size;
     final offset = textFieldRenderBox.localToGlobal(Offset.zero);
     return OverlayEntry(
         builder: (context) => StreamBuilder<List<SearchFieldListItem?>?>(
             stream: suggestionStream.stream,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<SearchFieldListItem?>?> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<SearchFieldListItem?>?> snapshot) {
               late var count = widget.maxSuggestionsInViewPort;
               if (snapshot.data != null) {
                 count = snapshot.data!.length;
@@ -529,9 +516,7 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
                 left: offset.dx,
                 width: textFieldsize.width,
                 child: CompositedTransformFollower(
-                    offset: widget.offset ??
-                        getYOffset(offset, textFieldsize, count) ??
-                        Offset.zero,
+                    offset: widget.offset ?? getYOffset(offset, textFieldsize, count) ?? Offset.zero,
                     link: _layerLink,
                     child: Material(child: _suggestionsBuilder())),
               );
@@ -552,52 +537,50 @@ class _SearchFieldState<T> extends State<SearchField<T>> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CompositedTransformTarget(
-          link: _layerLink,
-          child: TextFormField(
-            key: key,
-            autocorrect: widget.autoCorrect,
-            onFieldSubmitted: (x) {
-              if (widget.onSubmit != null) widget.onSubmit!(x);
-            },
-            onTap: () {
-              /// only call if SuggestionState = [Suggestion.expand]
-              if (!isSuggestionExpanded &&
-                  widget.suggestionState == Suggestion.expand) {
-                suggestionStream.sink.add(widget.suggestions);
-                if (mounted) {
-                  setState(() {
-                    isSuggestionExpanded = true;
-                  });
+        SizedBox(
+          height: widget.searchBoxHeight,
+          child: CompositedTransformTarget(
+            link: _layerLink,
+            child: TextFormField(
+              key: key,
+              autocorrect: widget.autoCorrect,
+              onFieldSubmitted: (x) {
+                if (widget.onSubmit != null) widget.onSubmit!(x);
+              },
+              onTap: () {
+                /// only call if SuggestionState = [Suggestion.expand]
+                if (!isSuggestionExpanded && widget.suggestionState == Suggestion.expand) {
+                  suggestionStream.sink.add(widget.suggestions);
+                  if (mounted) {
+                    setState(() {
+                      isSuggestionExpanded = true;
+                    });
+                  }
                 }
-              }
-            },
-            inputFormatters: widget.inputFormatters,
-            controller: widget.controller ?? searchController,
-            focusNode: _focus,
-            validator: widget.validator,
-            style: widget.searchStyle,
-            textInputAction: widget.textInputAction,
-            keyboardType: widget.inputType,
-            decoration:
-                widget.searchInputDecoration?.copyWith(hintText: widget.hint) ??
-                    InputDecoration(hintText: widget.hint),
-            onChanged: (query) {
-              final searchResult = <SearchFieldListItem<T>>[];
-              if (query.isEmpty) {
-                _createOverlay();
-                suggestionStream.sink.add(widget.suggestions);
-                return;
-              }
-              for (final suggestion in widget.suggestions) {
-                if (suggestion.searchKey
-                    .toLowerCase()
-                    .contains(query.toLowerCase())) {
-                  searchResult.add(suggestion);
+              },
+              inputFormatters: widget.inputFormatters,
+              controller: widget.controller ?? searchController,
+              focusNode: _focus,
+              validator: widget.validator,
+              style: widget.searchStyle,
+              textInputAction: widget.textInputAction,
+              keyboardType: widget.inputType,
+              decoration: widget.searchInputDecoration?.copyWith(hintText: widget.hint) ?? InputDecoration(hintText: widget.hint),
+              onChanged: (query) {
+                final searchResult = <SearchFieldListItem<T>>[];
+                if (query.isEmpty) {
+                  _createOverlay();
+                  suggestionStream.sink.add(widget.suggestions);
+                  return;
                 }
-              }
-              suggestionStream.sink.add(searchResult);
-            },
+                for (final suggestion in widget.suggestions) {
+                  if (suggestion.searchKey.toLowerCase().contains(query.toLowerCase())) {
+                    searchResult.add(suggestion);
+                  }
+                }
+                suggestionStream.sink.add(searchResult);
+              },
+            ),
           ),
         ),
         if (!widget.hasOverlay)
