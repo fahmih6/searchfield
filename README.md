@@ -1,4 +1,4 @@
-# [searchfield: ^0.7.0](https://pub.dev/packages/searchfield)
+# [searchfield: ^0.7.1](https://pub.dev/packages/searchfield)
 
 A highly customizable simple and easy to use flutter Widget to add a searchfield to your Flutter Application.This Widget allows you to search and select from list of suggestions.
 
@@ -20,7 +20,7 @@ list of all the properties mentioned below
 - Add the dependency
 
 ```yaml
- flutter pub add searchfield
+flutter pub add searchfield
 ```
 
 - Import the package
@@ -111,7 +111,6 @@ Form(
 <img src = "https://user-images.githubusercontent.com/31410839/115070269-5a692500-9f12-11eb-9de9-73ae970bf337.gif" width="300">
 </p>
 
-
 ## Properties
 
 - `autoCorrect`: Defines whether to enable autoCorrect defaults to `true`
@@ -131,7 +130,7 @@ Form(
 - `onSuggestionTap` : callback when a sugestion is tapped it also returns the tapped value.
 - `onSubmit` : callback when the searchfield is submitted, it returns the current text in the searchfield.
 - `suggestions`**(required)** : List of SearchFieldListItem to search from.
-each `SearchFieldListItem` in the list requires a unique searchKey, which is used to search the list and an optional Widget, Custom Object to display custom widget and to associate a object with the suggestion list.
+  each `SearchFieldListItem` in the list requires a unique searchKey, which is used to search the list and an optional Widget, Custom Object to display custom widget and to associate a object with the suggestion list.
 - `SuggestionState`: enum to hide/show the suggestion on focusing the searchfield defaults to `SuggestionState.expand`.
 - `searchStyle` : textStyle for the search Input.
 - `searchInputDecoration` : decoration for the search Input similar to built in textfield widget.
@@ -146,5 +145,3 @@ each `SearchFieldListItem` in the list requires a unique searchKey, which is use
 ### Contributing
 
 You are welcome to contribute to this package, to contribute please read the [contributing guidelines](CONTRIBUTING.md).
-
-

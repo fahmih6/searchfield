@@ -1,3 +1,7 @@
+#### [0.7.1] - Oct 6, 2022
+
+- Fixes [#43](https://github.com/maheshmnj/searchfield/issues/43)
+
 #### [0.7.0] - Aug 30, 2022
 
 - Add `offset` property to position the suggestions.
@@ -5,6 +9,7 @@
 #### [0.6.9] - Aug 12, 2022
 
 - Add `suggestionStyle` to style default suggestions.
+
 #### [0.6.8] - Aug 8, 2022
 
 - Fix widget not mounted error on Deactivate
@@ -12,13 +17,16 @@
 #### [0.6.7] - Jul 24, 2022
 
 - Fixes [issue #39](https://github.com/maheshmnj/searchfield/issues/39)
+
 #### [0.6.6] - Jun 12, 2022
 
-- Add `autoCorrect` and `inputFormatter`  property
+- Add `autoCorrect` and `inputFormatter` property
 - Fix suggestionState for `hasOverlay:false`
+
 #### [0.6.5] - May 19, 2022
 
 - Fixes runtime warning in flutter 3 [Issue #29](https://github.com/maheshmnj/searchfield/issues/29)
+
 #### [0.6.4] - Apr 21, 2022
 
 - Fixes [Issue #25](https://github.com/maheshmnj/searchfield/issues/25)
@@ -28,6 +36,7 @@
 - Fixes [issue #20](https://github.com/maheshmnj/searchfield/issues/20)
 - renamed property `onTap` to `onSuggestionTap`
 - Adds `focusNode` and `onSubmit` parameters to SearchField
+
 #### [0.6.2] - Feb 24, 2022
 
 - Add support for empty widget
@@ -56,15 +65,17 @@
 #### [0.5.4] - Sep 01, 2021
 
 - renamed property to `SuggestionType` to `SuggestionState`
+
 #### [0.5.3] - Sep 01, 2021
 
-- Adds `SuggestionType` enum to show/hide suggestion on focus 
+- Adds `SuggestionType` enum to show/hide suggestion on focus
 - Update example
 
 #### [0.5.2] - Apr 17, 2021
 
-- Add overlay example 
+- Add overlay example
 - Update readme
+
 #### [0.5.1] - Apr 13, 2021
 
 - Updated docs
